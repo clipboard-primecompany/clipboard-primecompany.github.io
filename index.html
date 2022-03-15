@@ -1,1 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Aldrich&display=swap"
+      rel="stylesheet"
+    />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        background-color: #31353d;
+        font-family: "Aldrich", sans-serif;
+        margin: 0
+      }
+      .container {
+        height: 700px;
+        margin: 0 auto;
+        text-align: center;
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        color: #3cbae2;
+      }
+      .textbox {
+        margin-top: 30px;
+      }
+      .textbox input {
+        color: #3cbae2 !important;
+        background-color: #5e667c;
+        border: 0;
+        padding: 10px 20px;
+        border-radius: 5px;
+        width: 300px;
+        outline: 0;
+        text-align: center;
+        cursor: no-drop;
+        font-weight: bold;
+      }
+      .textbox input::placeholder {
+        color: #3cbae2;
+      }
+      .clipboard button {
+        width: 340px;
+        margin-top: 5px;
+        padding: 8px 12px;
+        background-color: #3cbae2;
+        border: 0;
+        outline: 0;
+        border-radius: 5px;
+        color: white;
+        font-size: 18px;
+      }
+      .title {
+        font-size: 50px;
+      }
+      .hidden {
+        display: none !important;
+      }
+      .message {
+        position: absolute;
+        bottom: 25px;
+        background-color: #3cbae2;
+        color: white;
+        padding: 8px 40px;
+        transition: all 2s ease-in-out;
+        font-size: 20px;
+        border-radius: 5px;
+      }
+      .announc {
+        position: fixed;
+        background-color: #3cbae2;
+        width: 100%;
+        padding: 8px 0;
+        text-align: center;
+        color: black;
+        font-size: 18px;
+      }
+      .announc a {
+        color: white;
+        text-decoration: none;
+      }
 
+    </style>
+  </head>
+  <body>
+    <div class="announc">
+      Sizde bizim aramıza katılmak istiyorsanız <a href="https://discord.gg/89ZxKFmx">Prime Company</a> sunucusuna katılınız.
+    </div>
+    <div class="container">
+      <div class="message hidden" id="message"></div>
+      <div>
+        <span class="title">PRIME COMPANY</span>
+        <div class="textbox">
+          <input
+            id="code"
+            type="text"
+            value="Prime Company"
+            placeholder="Prime Company"
+            disabled
+          />
+        </div>
+        <div class="clipboard">
+          <button id="clickboard">Panoya Kopyala</button>
+        </div>
+      </div>
+    </div>
+    <script>
+      const clickboard = document.getElementById("clickboard");
+      const code = document.getElementById("code");
+      const message = document.getElementById("message");
+
+      const url = new URL(document.location);
+      const context = url.searchParams.get("code");
+      if (context) code.value = context;
+
+      function copyClipboard(text) {
+        navigator.clipboard.writeText(text);
+      }
+
+      function sendMessage(text) {
+        message.classList.remove("hidden");
+        message.innerText = text;
+        setTimeout(() => {
+          message.classList.add("hidden");
+        }, 3000);
+      }
+
+      clickboard.addEventListener("click", () => {
+        if (!context) return sendMessage("Kod Bulunmuyor.");
+        copyClipboard(context);
+        sendMessage("Kod Kopyalandı!");
+      });
+    </script>
+  </body>
+</html>
